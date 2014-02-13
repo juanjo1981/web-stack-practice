@@ -16,12 +16,9 @@
 (def routes {"" index, "/foo" foo, "/bar" bar, "/juanjo" juanjo})
 
 (defn handler [request]
-  (let [func (routes (request :uri))
-        params (params/wrap-params request)]
+  (let [func (routes (request :uri))]
+    (println request)
     (func request)))
-
-
-
 
 (defn main [port]
   (server/run-grizzly handler port))
