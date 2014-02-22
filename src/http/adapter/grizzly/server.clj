@@ -1,6 +1,6 @@
 (ns http.adapter.grizzly.server
-  (:import (org.glassfish.grizzly.http.server HttpServer)
-           (org.glassfish.grizzly.http.server HttpHandler))
+  (:import [org.glassfish.grizzly.http.server HttpServer]
+           [org.glassfish.grizzly.http.server HttpHandler])
   (:require [http.adapter.grizzly.utils :as utils]))
 
 (defn grizzly-handler-for [handler]
@@ -8,7 +8,8 @@
     (service [request response]
       (let [request-map (utils/build-request-map request)
             response-map (handler request-map)]
-        (utils/build-response response response-map)))))
+        (utils/build-response response response-map)
+        ))))
 
 (defn ^HttpServer run-grizzly [handler port]
   (let [server (. HttpServer createSimpleServer "/", port)
@@ -16,6 +17,8 @@
     (.addHttpHandler config 
       (grizzly-handler-for handler) 
       (into-array String ["/"]))
-    (.start server)))
+    (.start server)
+    server))
+
 
 

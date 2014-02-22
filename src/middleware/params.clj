@@ -1,17 +1,31 @@
 (ns middleware.params
-  (:require [clojure.string :as string]))
+  (:import [org.glassfish.grizzly.http.util URLDecoder])
+  (:require [clojure.string :as s]
+            [util.codec :as codec]
+            [http.adapter.grizzly.utils :as utils]))
 
+(defn parse-params-string [query-string]
+  (if  ((complement s/blank?) query-string)
+    (let [decoded-q-string (codec/decode query-string "UTF-8")
+          q-string-map (s/split decoded-q-string #"&")
+          parse-kv-str (fn [kv-str] 
+                         (let [[k v] (s/split kv-str #"=")] 
+                           [(keyword k) v]))]
+    (into {} (map parse-kv-str q-string-map)))
+    {}))  
 
-(defn form-param [string-param]
-  (let [[param-name value] (string/split string-param #"=")]
-    [(keyword param-name) value]))
+(defn params-request [request & [opts]]
+  (let [q-string-params (parse-params-string (request :query-string))
+        f-string-params (parse-params-string (utils/get-body request))]
+    (conj request 
+          {:query-params q-string-params}
+          {:form-params f-string-params}
+          {:params (merge f-string-params q-string-params)}
+          {:params (merge f-string-params q-string-params)})
+    ))
 
-;(defn- parse-query-string [query-string]
-;  (let [params ((string/split query-string #"&"))]
-;    (map form-param params)))
-
-;AÑADIR PARÁMETROS AL REQUEST
-;(defn wrap-params [request]
-;  (let [query-params (request :query-string)
-;        form-params (request :body)]
-;    (request)))
+(defn wrap-params [handler & [opts]]
+  (fn [request]
+    (-> request
+        (params-request opts)
+        handler)))

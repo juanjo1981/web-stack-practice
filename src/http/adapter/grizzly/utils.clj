@@ -1,6 +1,9 @@
 (ns http.adapter.grizzly.utils
-  (:import (org.glassfish.grizzly.http.server Request)
-           (org.glassfish.grizzly.http.server Response)))
+  (:import [org.glassfish.grizzly.http.server Request]
+           [org.glassfish.grizzly.http.server Response]
+           [org.glassfish.grizzly.http.io NIOWriter]
+           [java.io InputStream])
+  (:require [clojure.java.io :as io]))
 
 (defn- get-headers
     "Creates a name/value map of all the request headers."
@@ -31,6 +34,27 @@
     :body               (.getInputStream request)})
 
 (defn ^Response build-response [response response-map]
-  (.setContentType response "text/plain")
-  (.setContentLength response (.length response-map))
-  (.write (.getWriter response) response-map))
+  (let [body (:body response-map)]
+    (.setContentType response "text/plain")
+    (.setContentLength response (.length body))
+    (.setStatus response (:status response))
+    (.write (.getWriter response) body)))
+
+
+; POSOBLEMENTE ESTA FUNCION TENGA QUE MOVERLA EN CADA MIDDLEWARE
+; ESTUDIAR LA MACRO WITH-OPEN
+(defn get-body [request]
+  (let [body (request :body)]
+    (cond
+      (nil? body)
+        nil
+      (instance? InputStream body)
+        (with-open [b (io/input-stream body)]
+          (loop [c (.read b)
+                 result []]
+            (if (not= c -1)
+              (recur (.read b)
+                     (conj result (char c)))
+              (apply str result))))
+      :else "")))
+
