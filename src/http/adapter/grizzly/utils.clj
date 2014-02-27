@@ -25,7 +25,7 @@
     :uri                (.getRequestURI request)
     :query-string       (.getQueryString request)
     :scheme             (keyword (.getScheme request))
-    :request-method    (-> request .getMethod .toString .toLowerCase keyword) 
+    :request-method    (-> request .getMethod .toString .toLowerCase) 
     :headers            (get-headers request)
     :content-type       (.getContentType request)
     :content-length     (get-content-length request)
@@ -37,7 +37,7 @@
   (let [body (:body response-map)]
     (.setContentType response "text/plain")
     (.setContentLength response (.length body))
-    (.setStatus response (:status response))
+    (.setStatus response (:status response-map))
     (.write (.getWriter response) body)))
 
 
