@@ -1,4 +1,4 @@
-# http_interface
+#  web-stack-practice
 
 A Clojure library designed to ... well, that part is up to you.
 
@@ -11,3 +11,4 @@ FIXME
 Copyright © 2014 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
+
