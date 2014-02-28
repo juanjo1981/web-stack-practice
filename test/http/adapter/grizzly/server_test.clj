@@ -1,6 +1,6 @@
 (ns http.adapter.grizzly.server_test
   (:use [clojure.test]
-        [adapter.grizzly.server])
+        [http.adapter.grizzly.server])
   (:require [clj-http.client :as http])
   (:import [org.glassfish.grizzly.http.server HttpServer]))
 

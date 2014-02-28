@@ -1,6 +1,6 @@
 (ns http.middleware.params_test
   (:use clojure.test
-        middleware.params)
+        http.middleware.params)
   (:require [clojure.string :as string]
              [clojure.java.io :as io]))
 
