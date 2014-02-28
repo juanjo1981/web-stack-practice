@@ -9,7 +9,7 @@
     "Creates a name/value map of all the request headers."
     [^Request request]
   (let [header_names (iterator-seq (.iterator (.getHeaderNames request)))
-        get_header (fn [name] [(keyword name) (.getHeader request name)])]
+        get_header (fn [name] [ name (.getHeader request name)])]
     (into {} (map get_header header_names))))
 
 (defn- get-content-length

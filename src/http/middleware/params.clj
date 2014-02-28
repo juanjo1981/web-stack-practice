@@ -1,12 +1,11 @@
-(ns middleware.params
-  (:import [org.glassfish.grizzly.http.util URLDecoder])
+(ns http.middleware.params
   (:require [clojure.string :as s]
-            [util.codec :as codec]
+            [http.utils.url :as url]
             [http.adapter.grizzly.utils :as utils]))
 
 (defn parse-params-string [query-string]
   (if  ((complement s/blank?) query-string)
-    (let [decoded-q-string (codec/decode query-string "UTF-8")
+    (let [decoded-q-string (url/decode query-string "UTF-8")
           q-string-map (s/split decoded-q-string #"&")
           parse-kv-str (fn [kv-str] 
                          (let [[k v] (s/split kv-str #"=")] 
@@ -29,5 +28,4 @@
     (-> request
         (params-request opts)
         handler)))
-
 

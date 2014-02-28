@@ -1,4 +1,4 @@
-(ns middleware.params_test
+(ns http.middleware.params_test
   (:use clojure.test
         middleware.params)
   (:require [clojure.string :as string]

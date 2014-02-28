@@ -1,6 +1,6 @@
-(ns examples.example2
+(ns samples.sample2
   (:require [http.adapter.grizzly.server :as server]
-            [middleware.params :as params :refer [wrap-params]]
+            [http.middleware.params :as params :refer [wrap-params]]
             [routes.core :as routes]))
 
 

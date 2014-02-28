@@ -1,6 +1,6 @@
-(ns examples.example1
+(ns samples.sample1
   (:require [http.adapter.grizzly.server :as server]
-            [middleware.params :as params :refer [wrap-params ]]))
+            [http.middleware.params :as params :refer [wrap-params]]))
 
 (defn index [request]
     "this is the index handler")
