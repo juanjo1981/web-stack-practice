@@ -23,5 +23,4 @@
   (fn [request]
     ((get-handler routes request) request)))
 
-(defn get-route-params [route request]
-  )
+(defn get-route-params [route request])
