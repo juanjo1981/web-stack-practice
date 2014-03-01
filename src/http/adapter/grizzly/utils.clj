@@ -2,7 +2,8 @@
   (:import [org.glassfish.grizzly.http.server Request]
            [org.glassfish.grizzly.http.server Response]
            [org.glassfish.grizzly.http.io NIOWriter]
-           [java.io InputStream])
+           [java.io InputStream]
+           [java.net URI])
   (:require [clojure.java.io :as io]))
 
 (defn- get-headers
