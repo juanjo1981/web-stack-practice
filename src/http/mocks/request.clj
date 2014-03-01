@@ -10,9 +10,9 @@
           (= 1 (count params)) (pair-to-s (apply vec params))
           :else (reduce #(str (pair-to-s %1) "&" (pair-to-s %2)) params))))
 
-(defn request 
+(defn mock-request 
   ([method url]
-   (request method url nil))
+   (mock-request method url nil))
   ([method url params]
    (let [uri (.normalize (. URI create (if (empty? url) "" url)))
          port (if (= (.getPort uri) -1) 80 (.getPort uri))
@@ -33,6 +33,4 @@
      (p/params-request request)
      (let [body (params-to-query-s params)]
        (p/params-request (assoc request :body body :content-length (count body))))))))
-
-
 

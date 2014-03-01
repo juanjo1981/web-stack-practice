@@ -2,17 +2,18 @@
   (:use [clojure.test]
         [http.mocks.request]))
 
-(deftest params-to-query-s-test
+(deftest test-params-to-query-s
  (are [x y] (= x y)
       "" (params-to-query-s nil)
       "" (params-to-query-s "")
       "param1=value1" (params-to-query-s {:param1 "value1"})
       "param1=value1&param2=value2" (params-to-query-s 
                                       {:param1 "value1", :param2 "value2"})))
+{:method "post", :path "users/:id", :params [:id], :handler create-user, :accepts [], :responds [] }
 
-(deftest request-test
+(deftest test-mock-request
   (testing "values are correct"
-    (let [req (request 
+    (let [req (mock-request 
               :post 
               "http://192.168.1.35:3000?sort=10" 
               {:param1 "value1" :param2 "value2"})]
@@ -23,14 +24,14 @@
            (:body req)          "param1=value1&param2=value2"
            (:content-length req) (count (:body req)))))
   (testing "url without server-name, server-port and scheme"
-    (let [req (request :get "/users/1")]
+    (let [req (mock-request :get "/users/1")]
       (are [x y] (= x y)
            (:server-port req) 80
            (:server-name req) "localhost"
            (:scheme req)      :http
            )))
   (testing "empty url"
-    (let [req (request :get "")]
+    (let [req (mock-request :get "")]
      (are [x y] (= x y)
            (:server-port req) 80
            (:uri req) "/"
