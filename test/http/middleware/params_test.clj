@@ -2,7 +2,7 @@
   (:use clojure.test
         http.middleware.params)
   (:require [clojure.string :as string]
-            [http.mocks.request :refer [request]]
+            [http.mocks.request :refer [mock-request]]
              [clojure.java.io :as io]))
 
 (deftest test-parse-params-string
@@ -18,7 +18,7 @@
 (def apply-wrap-params (wrap-params identity))
 
 (deftest test-wrap-params-query-string
-  (let [req (dissoc (request :get 
+  (let [req (dissoc (mock-request :get 
                      "http://localhost:3000?param1=value1&param2=value2" 
                      {:param3 "value3" :param4 "value4"}) 
                     :query-params :form-params :params)

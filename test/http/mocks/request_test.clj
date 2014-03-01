@@ -9,7 +9,7 @@
       "param1=value1" (params-to-query-s {:param1 "value1"})
       "param1=value1&param2=value2" (params-to-query-s 
                                       {:param1 "value1", :param2 "value2"})))
-{:method "post", :path "users/:id", :params [:id], :handler create-user, :accepts [], :responds [] }
+{:method "post", :path "users/:id", :params [:id], :handler identity, :accepts [], :responds [] }
 
 (deftest test-mock-request
   (testing "values are correct"

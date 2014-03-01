@@ -33,7 +33,7 @@
       )))
 
 (deftest test-add-route-params
-  (testing ""
+  (testing "testing route params are correctly added to the request"
     (let [req (mock-request :post "users/1/contacts/10" {:name "John" :surname "Doe"})
           route-post {:method :post, :path "users/:id/contacts/:cid", :params [:id, :cid], :handler identity, :accepts [], :responds [] }
           result-req (add-route-params route-post req)
