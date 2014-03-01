@@ -25,7 +25,7 @@
     :uri                (.getRequestURI request)
     :query-string       (.getQueryString request)
     :scheme             (keyword (.getScheme request))
-    :request-method    (-> request .getMethod .toString .toLowerCase) 
+    :request-method    (-> request .getMethod .toString .toLowerCase keyword) 
     :headers            (get-headers request)
     :content-type       (.getContentType request)
     :content-length     (get-content-length request)
@@ -42,12 +42,12 @@
 
 
 ; POSOBLEMENTE ESTA FUNCION TENGA QUE MOVERLA EN CADA MIDDLEWARE
-; ESTUDIAR LA MACRO WITH-OPEN
 (defn get-body [request]
-  (let [body (request :body)]
+  (let [body (:body request)]
     (cond
       (nil? body)
         nil
+      (instance? String body) body
       (instance? InputStream body)
         (with-open [b (io/input-stream body)]
           (loop [c (.read b)

@@ -17,8 +17,6 @@
   {:method "post", :path "users/:id", :params [:id], :handler create-user, :accepts [], :responds [] }
   {:method "update", :path "users/unfollow/:id", :params [:id], :handler unfollow-user, :accepts [], :responds []}])
 
-
-
 (deftest test-get-route-params
   )
 

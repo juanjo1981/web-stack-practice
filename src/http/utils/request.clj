@@ -3,4 +3,3 @@
 (defn compare-method [op1 op2]
   (= op1 op2)) 
 
-

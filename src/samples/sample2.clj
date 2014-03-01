@@ -14,10 +14,10 @@
 (def request {:status 200, :request-method "post" :uri "users/1" :params {:name "John" :surname "Doe"}})
 
 (def routes
-  [{:method "get", :path "users", :params [], :handler get-users, :accepts [], :responds [] }
-  {:method "get", :path "users/:id", :params [:id], :handler get-user, :accepts [], :responds [] }
-  {:method "post", :path "users/:id", :params [:id], :handler create-user, :accepts [], :responds [] }
-  {:method "update", :path "users/unfollow/:id", :params [:id], :handler unfollow-user, :accepts [], :responds []}])
+  [{:method :get, :path "users", :params [], :handler get-users, :accepts [], :responds [] }
+  {:method :get, :path "users/:id", :params [:id], :handler get-user, :accepts [], :responds [] }
+  {:method :post, :path "users/:id", :params [:id], :handler create-user, :accepts [], :responds [] }
+  {:method :post, :path "users/unfollow/:id", :params [:id], :handler unfollow-user, :accepts [], :responds []}])
 
 
 (def app-with-routes (wrap-params (routes/wrap-routes routes)))
