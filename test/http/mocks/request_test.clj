@@ -27,15 +27,13 @@
       (are [x y] (= x y)
            (:server-port req) 80
            (:server-name req) "localhost"
-           (:scheme req)      :http
-           )))
+           (:scheme req)      :http)))
   (testing "empty url"
     (let [req (mock-request :get "")]
      (are [x y] (= x y)
            (:server-port req) 80
            (:uri req) "/"
            (:server-name req) "localhost"
-           (:scheme req)      :http
-           ))))
+           (:scheme req)      :http))))
 
 
