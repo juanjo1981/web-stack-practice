@@ -38,6 +38,39 @@
   (fn [request]
     (let [route (get-route routes request)
           handler (:handler route)
+          params (:params route)
           req-ruote-params (add-route-params route request)]
-    (handler req-ruote-params))))
+      (if (empty? params)
+        (handler)
+        (handler req-ruote-params)))))
+
+(defn compile-route [method path params & body]
+  (when body
+    `{:method ~method :path ~path :params ~params :handler ~@body}))
+
+(defmacro defroutes [name & routes]
+  `(def ~name
+    (wrap-routes ~(vec routes))))
+
+(defmacro GET [path params & body]
+    (compile-route :get path params (first body)))
+
+(defmacro POST [path params & body]
+    (compile-route :post path params (first body)))
+
+(defmacro DELETE [path params & body]
+    (compile-route :delete path params (first body)))
+
+(defmacro UPDATE [path params & body]
+    (compile-route :update path params (first body)))
+
+(defmacro PUT [path params & body]
+    (compile-route :put path params (first body)))
+
+(defmacro HEAD [path params & body]
+    (compile-route :head path params (first body)))
+
+(defmacro ANY [path params & body]
+    (compile-route :any path params (first body)))
+
 
