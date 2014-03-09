@@ -4,7 +4,8 @@
            [org.glassfish.grizzly.http.io NIOWriter]
            [java.io InputStream]
            [java.net URI])
-  (:require [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [http.utils.url :as url]))
 
 (defn- get-headers
     "Creates a name/value map of all the request headers."
@@ -23,7 +24,7 @@
   {:server-port        (.getServerPort request)
     :server-name        (.getServerName request)
     :remote-addr        (.getRemoteAddr request)
-    :uri                (.getRequestURI request)
+    :uri                (url/normalize (.toString (.getRequestURI request)))
     :query-string       (.getQueryString request)
     :scheme             (keyword (.getScheme request))
     :request-method    (-> request .getMethod .toString .toLowerCase keyword) 

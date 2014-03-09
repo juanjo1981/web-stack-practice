@@ -1,6 +1,7 @@
 (ns http.mocks.request
   (:require [clojure.string :as s]
-            [http.middleware.params :as p])
+            [http.middleware.params :as p]
+            [http.utils.url :as url])
   (:import [java.net URI]))
 
 (defn params-to-query-s [params]
@@ -20,7 +21,7 @@
                   :server-port       (or port 80)
                   :server-name       (or (.getHost uri) "localhost")
                   :remote-addr       "localhost" 
-                  :uri               (if (s/blank? url) "/" url)
+                  :uri               (if (s/blank? url) "/" (url/normalize url))
                   :query-string      (.getRawQuery uri)
                   :scheme            (or (keyword (.getScheme uri)) :http)
                   :request-method    method

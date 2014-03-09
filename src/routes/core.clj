@@ -7,8 +7,7 @@
 (defn- path-regex [path]
   (re-pattern 
     (str "^/?" 
-         (-> path url/normalize 
-             (s/replace #":\w+" "\\\\w+"))
+         (-> path (s/replace #":\w+" "\\\\w+"))
          "/?$")))
 
 (defn match-route [route request]

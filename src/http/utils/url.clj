@@ -7,5 +7,5 @@
   (. URLDecoder decode s encoder))
 
 (defn normalize [path]
-  (let [uri (. URI create path)] (.normalize uri)))
+  (let [uri (. URI create path)] (.toString (.normalize uri))))
 
