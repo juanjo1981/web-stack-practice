@@ -8,8 +8,8 @@
   (re-pattern 
     (str "^/?" 
          (-> path url/normalize 
-             (s/replace #":\w+" "\\\\w+") 
-             (str "$")))))
+             (s/replace #":\w+" "\\\\w+"))
+         "/?$")))
 
 (defn match-route [route request]
   (let [{route-path :path, route-method :method} route

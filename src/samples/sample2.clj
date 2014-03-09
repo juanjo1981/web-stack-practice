@@ -19,12 +19,12 @@
   (POST "users/:id" [:id] create-user)
   (POST "users/unfollow/:id" [:id] unfollow-user))
 
-(def app-with-routes (wrap-params (routes/wrap-routes routes)))
+;(def app-with-routes (wrap-params (routes/wrap-routes routes)))
 
 (def app-with-routes-macros (wrap-params app-routes))
 
-(defn ex-routes [port]
-  (server/run-grizzly app-with-routes port))
+;(defn ex-routes [port]
+;  (server/run-grizzly app-with-routes port))
 
 (defn ex-routes-macros [port]
   (server/run-grizzly app-with-routes-macros port))
