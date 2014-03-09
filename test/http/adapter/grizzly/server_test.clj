@@ -18,7 +18,7 @@
 
 (deftest test-run-grizzly
   (testing "HTTP Server"
-    (with-server handler 7650
-      (let [response (http/get "http://localhost:7650/foo")]
+    (with-server handler 7651
+      (let [response (http/get "http://localhost:7651/foo")]
         (is (= 200 (response :status)))))))
 

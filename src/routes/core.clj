@@ -12,11 +12,11 @@
 
 (defn match-route [route request]
   (let [{route-path :path, route-method :method} route
-        request-path (req/get-path request)
+        request-path (:path request)
         request-method (:request-method request)
         url-match (re-find  (path-regex route-path) request-path)
         method-match (req/compare-method route-method request-method)]
-    ;(println " route-path " route-path " request-uri " request-path " url-match " url-match " method-match " method-match)
+;    (println " (path-regex route-path) " (path-regex route-path) " route-path " route-path " request-uri " request-path " url-match " url-match " method-match " method-match)
     (and method-match ((complement s/blank?) url-match))))
 
 (defn- get-route [routes request]
@@ -24,7 +24,7 @@
   (first match-path)))
 
 (defn add-route-params [route request]
-  (let [req-parts     (s/split (req/get-path request) #"/")
+  (let [req-parts     (s/split (:path request) #"/")
         req-params    (:params request)
         ro-parts      (s/split (:path route) #"/")
         form-param    (fn [op1 op2] (if (re-find #":\w+" op1) [(-> op1 (s/replace-first  #":" "") keyword) op2] []))

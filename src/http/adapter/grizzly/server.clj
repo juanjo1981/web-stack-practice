@@ -8,8 +8,11 @@
     (service [request response]
       (let [request-map (utils/build-request-map request)
             response-map (handler request-map)]
-        (utils/build-response response response-map)
-        ))))
+        ;(println "------")
+        ;(println " REQUEST_MAP " request-map)
+        ;(println " RESPONSE_MAP " response-map)
+        ;(println "------")
+        (utils/build-response response response-map)))))
 
 (defn ^HttpServer run-grizzly [handler port]
   (let [server (. HttpServer createSimpleServer "/", port)

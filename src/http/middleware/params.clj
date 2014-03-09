@@ -3,6 +3,7 @@
             [http.utils.url :as url]
             [http.adapter.grizzly.utils :as utils]))
 
+; THINK REFACTOR --> encoding
 (defn parse-params-string [query-string]
   (if  ((complement s/blank?) query-string)
     (let [decoded-q-string (url/decode query-string "UTF-8")
