@@ -19,7 +19,6 @@
 (defn get-user [request] {:status 200 :body (str "<person>jajajaj</person>")
                            :headers {"Content-Type" "text/xml"}})
 
-
 (defn create-user [request] {:status 200 :body (str "request")})
 
 (defn unfollow-user  [request]  {:status 200 :body (str "request")})

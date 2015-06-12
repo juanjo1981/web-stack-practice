@@ -75,6 +75,7 @@
             (if (not= c -1)
               (recur (.read b)
                      (conj result (char c)))
-              (apply str result))))
+              (apply str result))
+            ))
       :else "")))
 
