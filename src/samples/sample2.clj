@@ -13,8 +13,10 @@
 
 ;(def request {:status 200, :request-method "post" :uri "users/1" :params {:name "John" :surname "Doe"}})
 
-(defn get-users [request] {:status 200 :body (str "request")
-                           :headers {"Content-Type" "text/html"}})
+(defn get-users [request] {:status 200 
+                           :body (str "request")
+                           :headers {"Content-Type" "text/html"}}
+                           )
 
 (defn get-user [request] {:status 200 :body (str "<person>jajajaj</person>")
                            :headers {"Content-Type" "text/xml"}})
